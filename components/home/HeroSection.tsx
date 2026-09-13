@@ -138,8 +138,22 @@ export function HeroSection() {
                 <span className="hero-word-lead inline-block">Your</span>{" "}
                 <span className="hero-word-lead inline-block">code</span>{" "}
                 <span className="hero-word-lead inline-block">runs</span>{" "}
-                <span className="hero-word-somewhere inline-block italic underline decoration-[#202124]/35 decoration-[2px] underline-offset-[6px] sm:underline-offset-[8px]">
+                <span className="hero-word-somewhere relative inline-block italic">
                   somewhere.
+                  <svg
+                    className="absolute left-0 -bottom-2 sm:-bottom-2.5 w-full h-2.5 sm:h-3 text-[#202124]/40 pointer-events-none overflow-visible"
+                    viewBox="0 0 100 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M 2 10.5 C 35 3, 75 1.5, 98 3"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 </span>
               </span>
               <span className="block mt-1.5 sm:mt-2.5">
@@ -148,8 +162,22 @@ export function HeroSection() {
                 <span className="hero-word-step2 inline-block">it</span>{" "}
                 <span className="hero-word-step2 inline-block">runs</span>{" "}
                 <br className="hidden sm:inline" />
-                <span className="hero-word-everywhere inline-block text-[#FF572F] italic underline decoration-[#FF572F]/55 decoration-[2.5px] underline-offset-[6px] sm:underline-offset-[8px]">
+                <span className="hero-word-everywhere relative inline-block text-[#FF572F] italic">
                   everywhere.
+                  <svg
+                    className="absolute left-0 -bottom-2 sm:-bottom-2.5 w-full h-2.5 sm:h-3 text-[#FF572F]/70 pointer-events-none overflow-visible"
+                    viewBox="0 0 100 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M 2 10.5 C 35 3, 75 1.5, 98 3"
+                      stroke="currentColor"
+                      strokeWidth="2.8"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 </span>
               </span>
             </h1>

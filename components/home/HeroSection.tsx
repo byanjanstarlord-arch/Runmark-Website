@@ -1,73 +1,94 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { HeroInteractiveCard } from "@/components/home/HeroInteractiveCard";
+import { gsap } from "gsap";
 import { 
   Copy, 
   Check, 
   ArrowRight, 
-  ShieldCheck, 
-  Camera, 
-  GitCompare, 
-  TerminalSquare,
-  Layers,
-  Cpu,
-  PackageCheck,
-  CheckCircle2,
-  Sparkles
+  CheckCircle2
 } from "lucide-react";
 
 export function HeroSection() {
   const [copied, setCopied] = useState(false);
-  const [activeLayer, setActiveLayer] = useState<number | null>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (!headlineRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        delay: 0.1,
+      });
+
+      // 1. "Your code runs somewhere." appears smoothly with gentle stagger
+      tl.fromTo(
+        ".hero-word-black",
+        {
+          opacity: 0,
+          y: 26,
+          filter: "blur(10px)",
+        },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.7,
+          stagger: 0.08,
+        }
+      )
+      // 2. Then: "Make sure it runs"
+      .fromTo(
+        ".hero-word-orange-lead",
+        {
+          opacity: 0,
+          y: 26,
+          filter: "blur(10px)",
+        },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.7,
+          stagger: 0.08,
+        },
+        "+=0.1"
+      )
+      // 3. Then: "everywhere." - orange climax with subtle spring emphasis
+      .fromTo(
+        ".hero-word-orange-accent",
+        {
+          opacity: 0,
+          y: 30,
+          scale: 0.92,
+          filter: "blur(12px)",
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.85,
+          ease: "back.out(1.5)",
+        },
+        "+=0.15"
+      );
+    }, headlineRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const copyCommand = () => {
     navigator.clipboard.writeText(siteConfig.installCommand);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
-  const layers = [
-    {
-      id: 1,
-      title: "Application Code",
-      detail: "Git Tracked • main@a81f29c",
-      tag: "Source",
-      variant: "default" as const,
-      icon: TerminalSquare,
-      annotation: "Repository HEAD, clean working tree, no untracked diffs"
-    },
-    {
-      id: 2,
-      title: "Dependencies",
-      detail: "Django 5.1.2 • FastAPI 0.115 • uv lock",
-      tag: "Locked",
-      variant: "success" as const,
-      icon: PackageCheck,
-      annotation: "Deterministic hashes matched against lockfiles"
-    },
-    {
-      id: 3,
-      title: "System & Runtime",
-      detail: "Python 3.12.10 • Node 22.19.0",
-      tag: "Verified",
-      variant: "orange" as const,
-      icon: Cpu,
-      annotation: "Platform AMD64 Windows/Linux host runtime verified"
-    },
-    {
-      id: 4,
-      title: "Environment & Services",
-      detail: "Postgres 16.3 (Port 5432) • .env secrets redacted",
-      tag: "Healthy",
-      variant: "success" as const,
-      icon: Layers,
-      annotation: "Multi-pass zero-secret masking applied to 6 variables"
-    }
-  ];
 
   return (
     <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden bg-warm-grid">
@@ -91,10 +112,25 @@ export function HeroSection() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#202124] tracking-tight leading-[1.14]">
-              Your code runs <span className="text-[#202124]">somewhere.</span>{" "}
-              <br className="hidden sm:inline" />
-              <span className="text-[#FF5A1F]">Make sure it runs everywhere.</span>
+            <h1 
+              ref={headlineRef}
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.14] text-[#202124]"
+            >
+              <span className="block">
+                <span className="hero-word-black inline-block">Your</span>{" "}
+                <span className="hero-word-black inline-block">code</span>{" "}
+                <span className="hero-word-black inline-block">runs</span>{" "}
+                <span className="hero-word-black inline-block">somewhere.</span>
+              </span>
+              <span className="block text-[#FF5A1F] mt-1 sm:mt-1.5">
+                <span className="hero-word-orange-lead inline-block">Make</span>{" "}
+                <span className="hero-word-orange-lead inline-block">sure</span>{" "}
+                <span className="hero-word-orange-lead inline-block">it</span>{" "}
+                <span className="hero-word-orange-lead inline-block">runs</span>{" "}
+                <span className="hero-word-orange-accent inline-block relative">
+                  everywhere.
+                </span>
+              </span>
             </h1>
 
             {/* Supporting Copy */}
@@ -125,157 +161,35 @@ export function HeroSection() {
             </div>
 
             {/* Copyable CLI Command Pill */}
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <div className="pt-3 flex flex-wrap items-center gap-3.5">
               <button
                 onClick={copyCommand}
-                className="group flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[#17191C] border border-[#2A2E33] text-sm sm:text-base text-[#E6EDF3] font-mono hover:border-[#FF5A1F]/60 transition-all shadow-warm-sm"
+                className="group flex items-center gap-3.5 px-6 py-3.5 sm:px-7 sm:py-4 rounded-2xl bg-[#121316] border-2 border-[#2A2E33] hover:border-[#FF5A1F] text-base sm:text-lg md:text-xl text-[#F0F6FC] font-mono hover:bg-[#181B20] transition-all duration-200 shadow-md hover:shadow-xl hover:shadow-[#FF5A1F]/15 cursor-pointer active:scale-[0.99]"
                 title="Click to copy install command"
               >
-                <span className="text-[#FF5A1F] select-none font-bold">$</span>
-                <span className="text-[#E6EDF3] font-medium">{siteConfig.installCommand}</span>
-                <span className="text-[#77736C] group-hover:text-white transition-colors ml-2">
+                <span className="text-[#FF5A1F] select-none font-bold text-lg sm:text-xl md:text-2xl">$</span>
+                <span className="text-[#F0F6FC] font-semibold tracking-wide">{siteConfig.installCommand}</span>
+                <span className="text-[#8B949E] group-hover:text-white transition-all ml-2 sm:ml-3 p-1.5 rounded-lg bg-white/5 group-hover:bg-white/10 group-hover:scale-105">
                   {copied ? (
-                    <Check className="w-4 h-4 text-[#238636]" />
+                    <Check className="w-5 h-5 text-[#3FB950]" />
                   ) : (
-                    <Copy className="w-4 h-4" />
+                    <Copy className="w-5 h-5" />
                   )}
                 </span>
               </button>
               {copied && (
-                <span className="text-sm text-[#238636] font-medium flex items-center gap-1">
-                  <CheckCircle2 className="w-4 h-4" /> Copied to clipboard!
+                <span className="text-sm sm:text-base text-[#3FB950] font-medium flex items-center gap-1.5 animate-in fade-in slide-in-from-left-2">
+                  <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" /> Copied to clipboard!
                 </span>
               )}
             </div>
           </div>
 
-          {/* Right Hero Visual — Interactive Environment Intelligence Card */}
-          <div className="lg:col-span-5 relative flex justify-center">
-            
-            {/* Stack Card Container */}
-            <div className="relative w-full max-w-md bg-[#FFFDF9] rounded-3xl border border-[#E8E2D9] p-6 sm:p-8 shadow-warm-xl">
-              
-              {/* Background Glow */}
-              <div className="absolute -top-10 -right-10 w-52 h-52 bg-[#FF5A1F]/10 rounded-full blur-3xl pointer-events-none" />
-              
-              {/* Top Card Header */}
-              <div className="flex items-center justify-between border-b border-[#E8E2D9] pb-4 mb-6">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[#E8E2D9]" />
-                  <div className="w-3 h-3 rounded-full bg-[#E8E2D9]" />
-                  <div className="w-3 h-3 rounded-full bg-[#E8E2D9]" />
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#238636] animate-ping" />
-                  <span className="text-xs font-mono text-[#77736C] font-semibold">runmark.env.inspect</span>
-                </div>
-              </div>
-
-              {/* Stacked Technical Layers */}
-              <div className="space-y-3 relative z-10">
-                {layers.map((layer) => {
-                  const Icon = layer.icon;
-                  const isSelected = activeLayer === layer.id;
-                  return (
-                    <div
-                      key={layer.id}
-                      onClick={() => setActiveLayer(isSelected ? null : layer.id)}
-                      className={`p-4 rounded-2xl border transition-all cursor-pointer ${
-                        isSelected
-                          ? "bg-[#FFF2EC] border-[#FF5A1F] shadow-warm-md"
-                          : "bg-[#FAF8F3] border-[#E8E2D9] shadow-warm-sm hover:border-[#D8D2C7] hover:bg-[#FFFDF9]"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <span className={`p-2.5 rounded-xl border ${
-                            isSelected
-                              ? "bg-[#FFFDF9] border-[#FFD9CA] text-[#FF5A1F]"
-                              : "bg-[#FFFDF9] border-[#E8E2D9] text-[#202124]"
-                          }`}>
-                            <Icon className="w-4 h-4" />
-                          </span>
-                          <div>
-                            <div className="text-sm font-bold text-[#202124]">{layer.title}</div>
-                            <div className="text-xs text-[#77736C] font-mono mt-0.5">{layer.detail}</div>
-                          </div>
-                        </div>
-                        <Badge variant={layer.variant} size="sm">{layer.tag}</Badge>
-                      </div>
-
-                      {isSelected && (
-                        <div className="mt-3 pt-2.5 border-t border-[#FFD9CA] text-xs text-[#202124] font-medium flex items-center gap-1.5">
-                          <Sparkles className="w-3.5 h-3.5 text-[#FF5A1F]" />
-                          <span>{layer.annotation}</span>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Bottom Visual Tag */}
-              <div className="mt-6 pt-4 border-t border-[#E8E2D9] flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[#FF5A1F] text-white flex items-center justify-center font-bold text-xs shadow-warm-sm">
-                    R
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-[#202124]">You&apos;re covered!</div>
-                    <div className="text-xs text-[#77736C] font-mono">Digest: ce19840a...</div>
-                  </div>
-                </div>
-                <span className="text-xs text-[#238636] bg-[#EAF5EA] px-3 py-1 rounded-full font-semibold border border-[#C6E7C6] flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> 100% In Sync
-                </span>
-              </div>
-            </div>
+          {/* Right Hero Visual — Interactive Living Environment Intelligence Card */}
+          <div className="lg:col-span-5 relative flex justify-center py-6 lg:py-0">
+            <HeroInteractiveCard />
           </div>
         </div>
-
-        {/* 4 Bottom Highlight Cards Strip */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3.5 hover:border-[#D8D2C7] transition-all">
-            <div className="p-3 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
-              <Camera className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-[#202124]">Environment Scanning</h4>
-              <p className="text-xs text-[#77736C] mt-0.5">Detect what matters</p>
-            </div>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3.5 hover:border-[#D8D2C7] transition-all">
-            <div className="p-3 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-[#202124]">Smart Snapshots</h4>
-              <p className="text-xs text-[#77736C] mt-0.5">Create reliable fingerprints</p>
-            </div>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3.5 hover:border-[#D8D2C7] transition-all">
-            <div className="p-3 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
-              <GitCompare className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-[#202124]">Drift Detection</h4>
-              <p className="text-xs text-[#77736C] mt-0.5">Spot differences instantly</p>
-            </div>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3.5 hover:border-[#D8D2C7] transition-all">
-            <div className="p-3 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
-              <TerminalSquare className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-[#202124]">Developer First</h4>
-              <p className="text-xs text-[#77736C] mt-0.5">Simple, fast, local-first</p>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
   );

@@ -1,92 +1,83 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-interface RunmarkLogoProps {
+export interface RunmarkLogoProps {
   className?: string;
   showText?: boolean;
-  size?: "sm" | "md" | "lg";
-  href?: string;
+  iconOnly?: boolean;
+  size?: "sm" | "md" | "lg" | "xl";
+  href?: string | null;
+  priority?: boolean;
 }
+
+// Proportional dimensions based on original 2152x731 (approx 2.94:1 ratio)
+const SIZES = {
+  sm: {
+    full: { width: 100, height: 34 },
+    icon: { width: 28, height: 28 },
+  },
+  md: {
+    full: { width: 124, height: 42 },
+    icon: { width: 36, height: 36 },
+  },
+  lg: {
+    full: { width: 165, height: 56 },
+    icon: { width: 48, height: 48 },
+  },
+  xl: {
+    full: { width: 220, height: 75 },
+    icon: { width: 64, height: 64 },
+  },
+};
 
 export function RunmarkLogo({
   className,
   showText = true,
+  iconOnly = false,
   size = "md",
   href = "/",
+  priority = true,
 }: RunmarkLogoProps) {
-  const iconSizes = {
-    sm: "w-6 h-6",
-    md: "w-8 h-8",
-    lg: "w-10 h-10",
-  };
-
-  const textSizes = {
-    sm: "text-lg font-bold tracking-tight",
-    md: "text-xl font-bold tracking-tight",
-    lg: "text-2xl font-bold tracking-tight",
-  };
+  const isIcon = iconOnly || !showText;
+  const config = SIZES[size][isIcon ? "icon" : "full"];
 
   const content = (
-    <div className={cn("inline-flex items-center gap-2.5 group select-none", className)}>
-      <div
-        className={cn(
-          "relative flex items-center justify-center rounded-lg bg-[#FF5A1F] text-white shadow-warm-sm group-hover:bg-[#E94D17] transition-all duration-200",
-          iconSizes[size]
-        )}
-      >
-        {/* Isometric 3D Cube R glyph */}
-        <svg
-          viewBox="0 0 32 32"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-4/5 h-4/5 text-white"
-        >
-          {/* Cube isometric faces */}
-          <path
-            d="M16 3L28 9.5V22.5L16 29L4 22.5V9.5L16 3Z"
-            fill="currentColor"
-            fillOpacity="0.2"
-          />
-          <path
-            d="M16 3L28 9.5L16 16L4 9.5L16 3Z"
-            fill="white"
-            fillOpacity="0.4"
-          />
-          <path
-            d="M16 16L28 9.5V22.5L16 29V16Z"
-            fill="black"
-            fillOpacity="0.15"
-          />
-          {/* Bold R letter in center */}
-          <text
-            x="16"
-            y="21"
-            fontSize="14"
-            fontWeight="900"
-            fontFamily="system-ui, sans-serif"
-            textAnchor="middle"
-            fill="white"
-          >
-            R
-          </text>
-        </svg>
-      </div>
-      {showText && (
-        <span
-          className={cn(
-            "text-[#202124] tracking-tight font-semibold flex items-center gap-1.5",
-            textSizes[size]
-          )}
-        >
-          Runmark
-        </span>
+    <div
+      className={cn(
+        "inline-flex items-center select-none group transition-transform duration-200 hover:opacity-95 active:scale-[0.98]",
+        className
+      )}
+    >
+      {isIcon ? (
+        <Image
+          src="/images/logo-icon.png"
+          alt="Runmark"
+          width={config.width}
+          height={config.height}
+          priority={priority}
+          className="object-contain h-auto"
+        />
+      ) : (
+        <Image
+          src="/images/logo-runmark.png"
+          alt="Runmark — Know what makes your code run"
+          width={config.width}
+          height={config.height}
+          priority={priority}
+          className="object-contain h-auto"
+        />
       )}
     </div>
   );
 
   if (href) {
-    return <Link href={href}>{content}</Link>;
+    return (
+      <Link href={href} className="inline-flex items-center focus:outline-none">
+        {content}
+      </Link>
+    );
   }
 
   return content;

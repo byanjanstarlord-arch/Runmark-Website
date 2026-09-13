@@ -7,8 +7,6 @@ import { FeatureHighlightsSection } from "@/components/home/FeatureHighlightsSec
 import { TerminalDemoSection } from "@/components/home/TerminalDemoSection";
 import { PlaygroundPreviewSection } from "@/components/home/PlaygroundPreviewSection";
 import { LatestReleaseSection } from "@/components/home/LatestReleaseSection";
-import { CommunityCTASection } from "@/components/home/CommunityCTASection";
-
 export default function HomePage() {
   return (
     <div className="flex flex-col">
@@ -20,7 +18,6 @@ export default function HomePage() {
       <TerminalDemoSection />
       <PlaygroundPreviewSection />
       <LatestReleaseSection />
-      <CommunityCTASection />
     </div>
   );
 }

@@ -90,12 +90,8 @@ export default function AboutPage() {
 
         {/* Brand Visual Stamp Card */}
         <div className="rounded-3xl bg-[#FAF8F3] border border-[#E8E2D9] p-8 sm:p-12 shadow-warm-sm flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-          <div className="flex items-center gap-4">
-            <RunmarkLogo size="lg" />
-            <div>
-              <div className="text-lg font-bold text-[#202124]">Runmark</div>
-              <div className="text-xs sm:text-sm text-[#77736C] font-mono">{siteConfig.tagline}</div>
-            </div>
+          <div className="flex items-center">
+            <RunmarkLogo size="xl" href={null} />
           </div>
           <div className="text-base font-semibold text-[#FF5A1F] italic font-mono">
             &ldquo;Same code. Everywhere.&rdquo;

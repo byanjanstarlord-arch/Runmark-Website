@@ -55,6 +55,13 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
   },
+  icons: {
+    icon: [
+      { url: "/images/logo-icon.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/images/logo-icon.png",
+  },
   robots: {
     index: true,
     follow: true,
@@ -71,7 +78,7 @@ export default function RootLayout({
       <body className="bg-[#FAF8F3] text-[#202124] min-h-screen flex flex-col font-sans selection:bg-[#FF5A1F] selection:text-white">
         <SmoothScrollProvider>
           <Navbar />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow relative z-10 bg-[#FAF8F3] shadow-[0_25px_50px_-12px_rgba(32,33,36,0.06)]">{children}</main>
           <Footer />
         </SmoothScrollProvider>
       </body>

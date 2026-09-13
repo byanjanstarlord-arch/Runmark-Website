@@ -27,47 +27,65 @@ export function HeroSection() {
         delay: 0.1,
       });
 
-      // 1. "Your code runs somewhere." appears smoothly with gentle stagger
+      // 1. "Your code runs"
       tl.fromTo(
-        ".hero-word-black",
+        ".hero-word-lead",
         {
           opacity: 0,
-          y: 26,
-          filter: "blur(10px)",
+          y: 24,
+          filter: "blur(8px)",
         },
         {
           opacity: 1,
           y: 0,
           filter: "blur(0px)",
-          duration: 0.7,
+          duration: 0.6,
           stagger: 0.08,
         }
       )
-      // 2. Then: "Make sure it runs"
+      // 2. "somewhere." — Dark charcoal italic + thin underline
       .fromTo(
-        ".hero-word-orange-lead",
+        ".hero-word-somewhere",
         {
           opacity: 0,
-          y: 26,
-          filter: "blur(10px)",
+          y: 24,
+          scale: 0.95,
+          filter: "blur(8px)",
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.7,
+        },
+        "-=0.1"
+      )
+      // 3. "Make sure it runs"
+      .fromTo(
+        ".hero-word-step2",
+        {
+          opacity: 0,
+          y: 24,
+          filter: "blur(8px)",
         },
         {
           opacity: 1,
           y: 0,
           filter: "blur(0px)",
-          duration: 0.7,
+          duration: 0.6,
           stagger: 0.08,
         },
         "+=0.1"
       )
-      // 3. Then: "everywhere." - orange climax with subtle spring emphasis
+      // 4. "everywhere." — Orange italic + thin underline with spring climax
       .fromTo(
-        ".hero-word-orange-accent",
+        ".hero-word-everywhere",
         {
           opacity: 0,
-          y: 30,
+          y: 28,
           scale: 0.92,
-          filter: "blur(12px)",
+          filter: "blur(10px)",
         },
         {
           opacity: 1,
@@ -77,7 +95,7 @@ export function HeroSection() {
           duration: 0.85,
           ease: "back.out(1.5)",
         },
-        "+=0.15"
+        "+=0.12"
       );
     }, headlineRef);
 
@@ -111,23 +129,26 @@ export function HeroSection() {
               </Link>
             </div>
 
-            {/* Main Headline */}
+            {/* Main Headline — Option 3: Contrast between 'somewhere.' and 'everywhere.' */}
             <h1 
               ref={headlineRef}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.14] text-[#202124]"
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.18] text-[#202124]"
             >
               <span className="block">
-                <span className="hero-word-black inline-block">Your</span>{" "}
-                <span className="hero-word-black inline-block">code</span>{" "}
-                <span className="hero-word-black inline-block">runs</span>{" "}
-                <span className="hero-word-black inline-block">somewhere.</span>
+                <span className="hero-word-lead inline-block">Your</span>{" "}
+                <span className="hero-word-lead inline-block">code</span>{" "}
+                <span className="hero-word-lead inline-block">runs</span>{" "}
+                <span className="hero-word-somewhere inline-block italic underline decoration-[#202124]/35 decoration-[2px] underline-offset-[6px] sm:underline-offset-[8px]">
+                  somewhere.
+                </span>
               </span>
-              <span className="block text-[#FF5A1F] mt-1 sm:mt-1.5">
-                <span className="hero-word-orange-lead inline-block">Make</span>{" "}
-                <span className="hero-word-orange-lead inline-block">sure</span>{" "}
-                <span className="hero-word-orange-lead inline-block">it</span>{" "}
-                <span className="hero-word-orange-lead inline-block">runs</span>{" "}
-                <span className="hero-word-orange-accent inline-block relative">
+              <span className="block mt-1.5 sm:mt-2.5">
+                <span className="hero-word-step2 inline-block">Make</span>{" "}
+                <span className="hero-word-step2 inline-block">sure</span>{" "}
+                <span className="hero-word-step2 inline-block">it</span>{" "}
+                <span className="hero-word-step2 inline-block">runs</span>{" "}
+                <br className="hidden sm:inline" />
+                <span className="hero-word-everywhere inline-block text-[#FF572F] italic underline decoration-[#FF572F]/55 decoration-[2.5px] underline-offset-[6px] sm:underline-offset-[8px]">
                   everywhere.
                 </span>
               </span>

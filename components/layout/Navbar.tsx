@@ -5,17 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/Button";
 import { RunmarkLogo } from "@/components/ui/RunmarkLogo";
 import { MobileMenu } from "./MobileMenu";
-import { useGitHubStats } from "@/lib/use-github-stats";
-import { Star, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { stars } = useGitHubStats();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,12 +22,6 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const formatStars = (count: number | null) => {
-    if (count === null || count === 0) return "Star";
-    if (count >= 1000) return `${(count / 1000).toFixed(1)}k`;
-    return count.toString();
-  };
 
   return (
     <>
@@ -75,19 +66,8 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right Action Buttons */}
-          <div className="flex items-center gap-3">
-            <Button
-              href={siteConfig.githubUrl}
-              external
-              variant="secondary"
-              size="sm"
-              className="hidden sm:inline-flex text-xs font-semibold"
-              leftIcon={<Star className="w-3.5 h-3.5 text-[#FF5A1F] fill-[#FF5A1F]" />}
-            >
-              <span>{stars !== null ? `Star ${formatStars(stars)}` : "Star on GitHub"}</span>
-            </Button>
-
+          {/* Right Action / Balance Container */}
+          <div className="flex items-center justify-end md:min-w-[124px]">
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}

@@ -156,11 +156,15 @@ export function HeroSection() {
 
             {/* Supporting Copy */}
             <p className="text-lg sm:text-xl text-[#77736C] max-w-2xl leading-relaxed font-normal">
-              <strong className="font-bold text-[#202124]">Runmark</strong> makes your development{" "}
-              <span className="text-[#202124] font-medium underline decoration-[#FF572F]/60 decoration-[1.5px] sm:decoration-2 underline-offset-[4px] sm:underline-offset-[5px]">
-                environment
+              <span 
+                className="font-bold text-[#202124] px-1 rounded-sm inline-block"
+                style={{
+                  background: "linear-gradient(180deg, transparent 46%, #FAE592 46%)",
+                }}
+              >
+                Runmark
               </span>{" "}
-              predictable. Scan, snapshot, compare, and verify everything your code depends on.
+              makes your development environment predictable. Scan, snapshot, compare, and verify everything your code depends on.
             </p>
 
             {/* CTAs and Install Pill */}

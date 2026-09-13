@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FAF8F3;
+  --foreground: #202124;
+  --muted-foreground: #77736C;
+  --accent: #FF5A1F;
+  --accent-hover: #E94D17;
+  --card: #FFFDF9;
+  --card-hover: #FFFFFF;
+  --border: #E8E2D9;
+  --border-focus: #D4CBC0;
+  --success: #238636;
+  --success-bg: #EAF5EA;
+  --error: #D92D20;
+  --error-bg: #FEECEB;
+  --warning: #D97706;
+  --warning-bg: #FEF3C7;
+  --terminal: #17191C;
+  --terminal-border: #2A2E33;
+  --terminal-foreground: #E6EDF3;
+}
+
+html {
+  background-color: var(--background);
+  color: var(--foreground);
+  scroll-behavior: smooth;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  overflow-x: hidden;
+  selection-background-color: #FF5A1F;
+  selection-color: #FFFFFF;
+}
+
+::selection {
+  background-color: #FF5A1F;
+  color: #FFFFFF;
+}
+
+/* Custom warm scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF8F3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D8D2C7;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #BDB6A9;
+}
+
+/* Lenis smooth scrolling rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Code block highlighting aesthetics */
+pre, code {
+  font-family: var(--font-geist-mono), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Grain texture overlay */
+.bg-warm-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(232, 226, 217, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(232, 226, 217, 0.4) 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(rgba(119, 115, 108, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Utility animations */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

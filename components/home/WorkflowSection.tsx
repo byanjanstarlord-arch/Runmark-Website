@@ -42,7 +42,7 @@ export function WorkflowSection() {
           <span className="text-xs font-bold uppercase tracking-widest text-[#FF5A1F]">
             How Runmark Works
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#202124] tracking-tight mt-2 mb-4">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#202124] tracking-tight mt-2 mb-4">
             From chaos to consistency.
           </h2>
           <p className="text-base sm:text-lg text-[#77736C]">
@@ -52,7 +52,7 @@ export function WorkflowSection() {
 
         {/* 4 Connected Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-          {steps.map((step, idx) => {
+          {steps.map((step) => {
             const Icon = step.icon;
             return (
               <div
@@ -62,7 +62,7 @@ export function WorkflowSection() {
                 <div>
                   {/* Top Step Number & Icon */}
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-xs font-mono font-bold text-[#FF5A1F] bg-[#FFF2EC] px-2.5 py-1 rounded-lg border border-[#FFD9CA]">
+                    <span className="text-xs font-mono font-bold text-[#FF5A1F] bg-[#FFF2EC] px-3 py-1 rounded-lg border border-[#FFD9CA]">
                       {step.number}
                     </span>
                     <div className="p-2.5 rounded-xl bg-[#FAF8F3] border border-[#E8E2D9] text-[#202124] group-hover:bg-[#FFF2EC] group-hover:text-[#FF5A1F] group-hover:border-[#FFD9CA] transition-colors">
@@ -71,15 +71,15 @@ export function WorkflowSection() {
                   </div>
 
                   {/* Title & Action */}
-                  <h3 className="text-lg font-bold text-[#202124] mb-1">
+                  <h3 className="text-xl font-bold text-[#202124] mb-1">
                     {step.title}
                   </h3>
-                  <div className="text-xs font-semibold text-[#FF5A1F] mb-3">
+                  <div className="text-sm font-semibold text-[#FF5A1F] mb-3">
                     {step.action}
                   </div>
 
                   {/* Description */}
-                  <p className="text-xs text-[#77736C] leading-relaxed">
+                  <p className="text-sm text-[#77736C] leading-relaxed">
                     {step.desc}
                   </p>
                 </div>

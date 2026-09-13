@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { docGroups, docArticles } from "@/lib/docs-data";
+import { docGroups } from "@/lib/docs-data";
 
 interface DocsPrevNextProps {
   currentSlug: string;
@@ -25,13 +25,13 @@ export function DocsPrevNext({ currentSlug }: DocsPrevNextProps) {
       {prev ? (
         <Link
           href={`/docs/${prev.slug}`}
-          className="group flex flex-col p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] hover:border-[#D8D2C7] transition-all shadow-warm-sm"
+          className="group flex flex-col p-5 rounded-2xl bg-[#FAF8F3] border border-[#E8E2D9] hover:border-[#D8D2C7] hover:bg-[#FFFDF9] transition-all shadow-warm-sm"
         >
-          <div className="flex items-center gap-1 text-xs text-[#77736C] mb-1">
-            <ChevronLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-[#77736C] mb-1.5">
+            <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform text-[#FF5A1F]" />
             <span>Previous</span>
           </div>
-          <span className="text-sm font-semibold text-[#202124] group-hover:text-[#FF5A1F] transition-colors">
+          <span className="text-base font-bold text-[#202124] group-hover:text-[#FF5A1F] transition-colors">
             {prev.title}
           </span>
         </Link>
@@ -40,13 +40,13 @@ export function DocsPrevNext({ currentSlug }: DocsPrevNextProps) {
       {next ? (
         <Link
           href={`/docs/${next.slug}`}
-          className="group flex flex-col items-end text-right p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] hover:border-[#D8D2C7] transition-all shadow-warm-sm"
+          className="group flex flex-col items-end text-right p-5 rounded-2xl bg-[#FAF8F3] border border-[#E8E2D9] hover:border-[#D8D2C7] hover:bg-[#FFFDF9] transition-all shadow-warm-sm"
         >
-          <div className="flex items-center gap-1 text-xs text-[#77736C] mb-1">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-[#77736C] mb-1.5">
             <span>Next</span>
-            <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform text-[#FF5A1F]" />
           </div>
-          <span className="text-sm font-semibold text-[#202124] group-hover:text-[#FF5A1F] transition-colors">
+          <span className="text-base font-bold text-[#202124] group-hover:text-[#FF5A1F] transition-colors">
             {next.title}
           </span>
         </Link>

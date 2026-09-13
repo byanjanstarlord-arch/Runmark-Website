@@ -103,7 +103,7 @@ Run 'runmark doctor' to view actionable remediation advice.`
             <div className="rounded-3xl bg-[#17191C] border border-[#2A2E33] shadow-warm-xl overflow-hidden">
               
               {/* Terminal Titlebar & Tabs */}
-              <div className="flex items-center justify-between px-4 py-3 bg-[#111315] border-b border-[#2A2E33]">
+              <div className="flex items-center justify-between px-4 py-3.5 bg-[#111315] border-b border-[#2A2E33]">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
                   <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
@@ -114,15 +114,15 @@ Run 'runmark doctor' to view actionable remediation advice.`
                 </div>
 
                 {/* Tabs */}
-                <div className="flex items-center gap-1 bg-[#17191C] p-1 rounded-xl border border-[#2A2E33]">
+                <div className="flex items-center gap-1.5 bg-[#17191C] p-1 rounded-xl border border-[#2A2E33]">
                   {tabs.map((tab) => (
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`px-2.5 py-1 text-xs font-mono rounded-lg transition-colors ${
+                      className={`px-3 py-1 text-xs font-mono rounded-lg transition-colors ${
                         activeTab === tab.id
-                          ? "bg-[#2A2E33] text-white font-semibold"
-                          : "text-[#77736C] hover:text-white"
+                          ? "bg-[#2A2E33] text-white font-bold shadow-sm"
+                          : "text-[#77736C] hover:text-white hover:bg-[#2A2E33]/50"
                       }`}
                     >
                       {tab.name}
@@ -145,13 +145,13 @@ Run 'runmark doctor' to view actionable remediation advice.`
               </div>
 
               {/* Command Prompt Line */}
-              <div className="px-6 pt-5 pb-2 font-mono text-xs text-[#77736C] flex items-center gap-2 border-b border-[#2A2E33]/40">
+              <div className="px-6 pt-5 pb-3 font-mono text-sm text-[#77736C] flex items-center gap-2 border-b border-[#2A2E33]/40">
                 <span className="text-[#FF5A1F] font-bold">$</span>
-                <span className="text-white font-semibold">{currentTab.cmd}</span>
+                <span className="text-white font-bold">{currentTab.cmd}</span>
               </div>
 
               {/* Terminal Body */}
-              <pre className="p-6 text-xs sm:text-xs font-mono text-[#E6EDF3] overflow-x-auto whitespace-pre leading-relaxed">
+              <pre className="p-6 text-xs sm:text-sm font-mono text-[#E6EDF3] overflow-x-auto whitespace-pre leading-relaxed">
                 {currentTab.output}
               </pre>
             </div>
@@ -162,20 +162,20 @@ Run 'runmark doctor' to view actionable remediation advice.`
             <span className="text-xs font-bold uppercase tracking-widest text-[#FF5A1F]">
               Real CLI Experience
             </span>
-            <h2 className="text-3xl font-extrabold text-[#202124] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#202124] tracking-tight">
               See it in action.
             </h2>
-            <p className="text-sm text-[#77736C] leading-relaxed">
+            <p className="text-base text-[#77736C] leading-relaxed">
               A simple command gives you a clearer, deterministic picture of your development environment. No bloated daemons, no background cloud trackers.
             </p>
 
-            <div className="space-y-3 pt-2">
+            <div className="space-y-3.5 pt-2">
               <div className="flex items-start gap-3">
                 <div className="w-5 h-5 rounded-full bg-[#EAF5EA] text-[#238636] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                   ✓
                 </div>
-                <div className="text-xs text-[#202124]">
-                  <strong className="font-semibold">Sub-second execution:</strong> Scans runtimes, dependencies, and ports concurrently.
+                <div className="text-sm text-[#202124]">
+                  <strong className="font-semibold text-[#202124]">Sub-second execution:</strong> Scans runtimes, dependencies, and ports concurrently.
                 </div>
               </div>
 
@@ -183,8 +183,8 @@ Run 'runmark doctor' to view actionable remediation advice.`
                 <div className="w-5 h-5 rounded-full bg-[#EAF5EA] text-[#238636] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                   ✓
                 </div>
-                <div className="text-xs text-[#202124]">
-                  <strong className="font-semibold">Zero-Secret guarantee:</strong> Multi-pass credential masking protects secrets.
+                <div className="text-sm text-[#202124]">
+                  <strong className="font-semibold text-[#202124]">Zero-Secret guarantee:</strong> Multi-pass credential masking protects secrets.
                 </div>
               </div>
 
@@ -192,17 +192,17 @@ Run 'runmark doctor' to view actionable remediation advice.`
                 <div className="w-5 h-5 rounded-full bg-[#EAF5EA] text-[#238636] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                   ✓
                 </div>
-                <div className="text-xs text-[#202124]">
-                  <strong className="font-semibold">Deterministic hashing:</strong> Identical environments always produce identical digests.
+                <div className="text-sm text-[#202124]">
+                  <strong className="font-semibold text-[#202124]">Deterministic hashing:</strong> Identical environments always produce identical digests.
                 </div>
               </div>
             </div>
 
             <div className="pt-4 flex items-center gap-3">
-              <Button href="/docs/getting-started/quick-start" variant="primary" size="md">
+              <Button href="/docs/getting-started/quick-start" variant="primary" size="md" className="text-sm font-semibold">
                 Try Runmark
               </Button>
-              <Button href="/docs" variant="secondary" size="md">
+              <Button href="/docs" variant="secondary" size="md" className="text-sm font-semibold">
                 Read Docs
               </Button>
             </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { siteConfig } from "@/lib/site-config";
 import { Button } from "@/components/ui/Button";
-import { Star, Github, ArrowRight } from "lucide-react";
+import { Star } from "lucide-react";
 
 export function CommunityCTASection() {
   return (
@@ -13,7 +13,7 @@ export function CommunityCTASection() {
             Open Source & Community Driven
           </span>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#202124] tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#202124] tracking-tight">
             Build with confidence.
           </h2>
 
@@ -27,6 +27,7 @@ export function CommunityCTASection() {
               external
               variant="primary"
               size="lg"
+              className="text-base font-semibold px-6 py-3"
               leftIcon={<Star className="w-4 h-4 fill-white" />}
             >
               Star on GitHub
@@ -35,6 +36,7 @@ export function CommunityCTASection() {
               href="/community"
               variant="secondary"
               size="lg"
+              className="text-base font-medium px-6 py-3"
             >
               Join Community
             </Button>

@@ -8,12 +8,14 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { RunmarkLogo } from "@/components/ui/RunmarkLogo";
 import { MobileMenu } from "./MobileMenu";
+import { useGitHubStats } from "@/lib/use-github-stats";
 import { Star, Menu } from "lucide-react";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { stars } = useGitHubStats();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,13 +26,19 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const formatStars = (count: number | null) => {
+    if (count === null || count === 0) return "Star";
+    if (count >= 1000) return `${(count / 1000).toFixed(1)}k`;
+    return count.toString();
+  };
+
   return (
     <>
       <header
         className={cn(
           "sticky top-0 z-40 w-full transition-all duration-300",
           isScrolled
-            ? "bg-[#FAF8F3]/90 backdrop-blur-md border-b border-[#E8E2D9] shadow-warm-sm py-3"
+            ? "bg-[#FAF8F3]/95 backdrop-blur-md border-b border-[#E8E2D9] shadow-warm-sm py-3"
             : "bg-[#FAF8F3] border-b border-transparent py-4"
         )}
       >
@@ -50,15 +58,15 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "relative px-4 py-1.5 text-xs font-medium rounded-full transition-all duration-200 flex items-center gap-1.5",
+                    "relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200 flex items-center gap-1.5",
                     isActive
-                      ? "bg-[#FFFDF9] text-[#202124] shadow-warm-sm border border-[#E8E2D9]"
-                      : "text-[#77736C] hover:text-[#202124]"
+                      ? "bg-[#FFFDF9] text-[#202124] shadow-warm-sm border border-[#E8E2D9] font-semibold"
+                      : "text-[#77736C] hover:text-[#202124] hover:bg-[#FFFDF9]/60"
                   )}
                 >
                   <span>{link.label}</span>
                   {link.badge && (
-                    <span className="text-[10px] bg-[#FFF2EC] text-[#FF5A1F] px-1.5 py-0.2 rounded-full font-semibold border border-[#FFD9CA]">
+                    <span className="text-[11px] bg-[#FFF2EC] text-[#FF5A1F] px-1.5 py-0.2 rounded-full font-bold border border-[#FFD9CA]">
                       {link.badge}
                     </span>
                   )}
@@ -74,10 +82,10 @@ export function Navbar() {
               external
               variant="secondary"
               size="sm"
-              className="hidden sm:inline-flex"
+              className="hidden sm:inline-flex text-xs font-semibold"
               leftIcon={<Star className="w-3.5 h-3.5 text-[#FF5A1F] fill-[#FF5A1F]" />}
             >
-              Star on GitHub
+              <span>{stars !== null ? `Star ${formatStars(stars)}` : "Star on GitHub"}</span>
             </Button>
 
             {/* Mobile Hamburger Button */}

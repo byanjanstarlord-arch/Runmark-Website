@@ -9,7 +9,6 @@ import {
   Copy, 
   Check, 
   ArrowRight, 
-  Sparkles, 
   ShieldCheck, 
   Camera, 
   GitCompare, 
@@ -17,17 +16,58 @@ import {
   Layers,
   Cpu,
   PackageCheck,
-  Globe
+  CheckCircle2,
+  Sparkles
 } from "lucide-react";
 
 export function HeroSection() {
   const [copied, setCopied] = useState(false);
+  const [activeLayer, setActiveLayer] = useState<number | null>(null);
 
   const copyCommand = () => {
     navigator.clipboard.writeText(siteConfig.installCommand);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const layers = [
+    {
+      id: 1,
+      title: "Application Code",
+      detail: "Git Tracked • main@a81f29c",
+      tag: "Source",
+      variant: "default" as const,
+      icon: TerminalSquare,
+      annotation: "Repository HEAD, clean working tree, no untracked diffs"
+    },
+    {
+      id: 2,
+      title: "Dependencies",
+      detail: "Django 5.1.2 • FastAPI 0.115 • uv lock",
+      tag: "Locked",
+      variant: "success" as const,
+      icon: PackageCheck,
+      annotation: "Deterministic hashes matched against lockfiles"
+    },
+    {
+      id: 3,
+      title: "System & Runtime",
+      detail: "Python 3.12.10 • Node 22.19.0",
+      tag: "Verified",
+      variant: "orange" as const,
+      icon: Cpu,
+      annotation: "Platform AMD64 Windows/Linux host runtime verified"
+    },
+    {
+      id: 4,
+      title: "Environment & Services",
+      detail: "Postgres 16.3 (Port 5432) • .env secrets redacted",
+      tag: "Healthy",
+      variant: "success" as const,
+      icon: Layers,
+      annotation: "Multi-pass zero-secret masking applied to 6 variables"
+    }
+  ];
 
   return (
     <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden bg-warm-grid">
@@ -42,16 +82,16 @@ export function HeroSection() {
             {/* Version Badge */}
             <div className="inline-flex items-center gap-2">
               <Link href="/changelog">
-                <Badge variant="orange" size="md" className="cursor-pointer hover:bg-[#FFE6DC] transition-colors">
+                <Badge variant="orange" size="md" className="cursor-pointer hover:bg-[#FFE6DC] transition-colors py-1 px-3.5 text-xs sm:text-sm font-semibold">
                   <span className="font-bold">v{siteConfig.version}</span>
-                  <span className="text-[#202124] ml-1">Now with Environment Contracts</span>
-                  <ArrowRight className="w-3 h-3 ml-0.5" />
+                  <span className="text-[#202124] ml-1.5 font-medium">Now with Environment Contracts</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1 inline-block" />
                 </Badge>
               </Link>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#202124] tracking-tight leading-[1.12]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#202124] tracking-tight leading-[1.14]">
               Your code runs <span className="text-[#202124]">somewhere.</span>{" "}
               <br className="hidden sm:inline" />
               <span className="text-[#FF5A1F]">Make sure it runs everywhere.</span>
@@ -63,12 +103,13 @@ export function HeroSection() {
             </p>
 
             {/* CTAs and Install Pill */}
-            <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="pt-3 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <Button
                 href="/docs/getting-started/introduction"
                 variant="primary"
                 size="lg"
                 rightIcon={<ArrowRight className="w-4 h-4" />}
+                className="text-base font-semibold px-6 py-3"
               >
                 Get Started
               </Button>
@@ -77,20 +118,21 @@ export function HeroSection() {
                 external
                 variant="secondary"
                 size="lg"
+                className="text-base font-medium px-6 py-3"
               >
                 View on GitHub
               </Button>
             </div>
 
             {/* Copyable CLI Command Pill */}
-            <div className="pt-2 flex items-center gap-3">
+            <div className="pt-2 flex flex-wrap items-center gap-3">
               <button
                 onClick={copyCommand}
-                className="group flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[#17191C] border border-[#2A2E33] text-sm text-[#E6EDF3] font-mono hover:border-[#FF5A1F]/50 transition-all shadow-warm-sm"
+                className="group flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[#17191C] border border-[#2A2E33] text-sm sm:text-base text-[#E6EDF3] font-mono hover:border-[#FF5A1F]/60 transition-all shadow-warm-sm"
                 title="Click to copy install command"
               >
                 <span className="text-[#FF5A1F] select-none font-bold">$</span>
-                <span className="text-[#E6EDF3]">{siteConfig.installCommand}</span>
+                <span className="text-[#E6EDF3] font-medium">{siteConfig.installCommand}</span>
                 <span className="text-[#77736C] group-hover:text-white transition-colors ml-2">
                   {copied ? (
                     <Check className="w-4 h-4 text-[#238636]" />
@@ -100,21 +142,21 @@ export function HeroSection() {
                 </span>
               </button>
               {copied && (
-                <span className="text-xs text-[#238636] font-medium animate-fade-in">
-                  Copied to clipboard!
+                <span className="text-sm text-[#238636] font-medium flex items-center gap-1">
+                  <CheckCircle2 className="w-4 h-4" /> Copied to clipboard!
                 </span>
               )}
             </div>
           </div>
 
-          {/* Right Hero Visual — Isometric Environment Intelligence Card */}
+          {/* Right Hero Visual — Interactive Environment Intelligence Card */}
           <div className="lg:col-span-5 relative flex justify-center">
             
-            {/* Isometric Stack Card Container */}
-            <div className="relative w-full max-w-md bg-[#FFFDF9] rounded-3xl border border-[#E8E2D9] p-8 shadow-warm-xl">
+            {/* Stack Card Container */}
+            <div className="relative w-full max-w-md bg-[#FFFDF9] rounded-3xl border border-[#E8E2D9] p-6 sm:p-8 shadow-warm-xl">
               
               {/* Background Glow */}
-              <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#FF5A1F]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -top-10 -right-10 w-52 h-52 bg-[#FF5A1F]/10 rounded-full blur-3xl pointer-events-none" />
               
               {/* Top Card Header */}
               <div className="flex items-center justify-between border-b border-[#E8E2D9] pb-4 mb-6">
@@ -123,82 +165,68 @@ export function HeroSection() {
                   <div className="w-3 h-3 rounded-full bg-[#E8E2D9]" />
                   <div className="w-3 h-3 rounded-full bg-[#E8E2D9]" />
                 </div>
-                <span className="text-xs font-mono text-[#77736C]">runmark.env.inspect</span>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#238636] animate-ping" />
+                  <span className="text-xs font-mono text-[#77736C] font-semibold">runmark.env.inspect</span>
+                </div>
               </div>
 
               {/* Stacked Technical Layers */}
               <div className="space-y-3 relative z-10">
-                
-                {/* Layer 1: Code */}
-                <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#FAF8F3] border border-[#E8E2D9] shadow-warm-sm hover:border-[#FF5A1F]/40 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <span className="p-2 rounded-lg bg-[#FFFDF9] border border-[#E8E2D9] text-[#77736C]">
-                      <TerminalSquare className="w-4 h-4 text-[#202124]" />
-                    </span>
-                    <div>
-                      <div className="text-xs font-semibold text-[#202124]">Application Code</div>
-                      <div className="text-[11px] text-[#77736C] font-mono">Git Tracked • main@a81f29c</div>
-                    </div>
-                  </div>
-                  <Badge variant="default" size="sm">Source</Badge>
-                </div>
+                {layers.map((layer) => {
+                  const Icon = layer.icon;
+                  const isSelected = activeLayer === layer.id;
+                  return (
+                    <div
+                      key={layer.id}
+                      onClick={() => setActiveLayer(isSelected ? null : layer.id)}
+                      className={`p-4 rounded-2xl border transition-all cursor-pointer ${
+                        isSelected
+                          ? "bg-[#FFF2EC] border-[#FF5A1F] shadow-warm-md"
+                          : "bg-[#FAF8F3] border-[#E8E2D9] shadow-warm-sm hover:border-[#D8D2C7] hover:bg-[#FFFDF9]"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <span className={`p-2.5 rounded-xl border ${
+                            isSelected
+                              ? "bg-[#FFFDF9] border-[#FFD9CA] text-[#FF5A1F]"
+                              : "bg-[#FFFDF9] border-[#E8E2D9] text-[#202124]"
+                          }`}>
+                            <Icon className="w-4 h-4" />
+                          </span>
+                          <div>
+                            <div className="text-sm font-bold text-[#202124]">{layer.title}</div>
+                            <div className="text-xs text-[#77736C] font-mono mt-0.5">{layer.detail}</div>
+                          </div>
+                        </div>
+                        <Badge variant={layer.variant} size="sm">{layer.tag}</Badge>
+                      </div>
 
-                {/* Layer 2: Dependencies */}
-                <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#FAF8F3] border border-[#E8E2D9] shadow-warm-sm hover:border-[#FF5A1F]/40 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <span className="p-2 rounded-lg bg-[#FFFDF9] border border-[#E8E2D9] text-[#77736C]">
-                      <PackageCheck className="w-4 h-4 text-[#202124]" />
-                    </span>
-                    <div>
-                      <div className="text-xs font-semibold text-[#202124]">Dependencies</div>
-                      <div className="text-[11px] text-[#77736C] font-mono">Django 5.1.2 • FastAPI • uv</div>
+                      {isSelected && (
+                        <div className="mt-3 pt-2.5 border-t border-[#FFD9CA] text-xs text-[#202124] font-medium flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5 text-[#FF5A1F]" />
+                          <span>{layer.annotation}</span>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                  <Badge variant="success" size="sm">Locked</Badge>
-                </div>
-
-                {/* Layer 3: System & Runtime */}
-                <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#FAF8F3] border border-[#E8E2D9] shadow-warm-sm hover:border-[#FF5A1F]/40 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <span className="p-2 rounded-lg bg-[#FFFDF9] border border-[#E8E2D9] text-[#77736C]">
-                      <Cpu className="w-4 h-4 text-[#202124]" />
-                    </span>
-                    <div>
-                      <div className="text-xs font-semibold text-[#202124]">System & Runtime</div>
-                      <div className="text-[11px] text-[#77736C] font-mono">Python 3.12.4 • Node 22.14</div>
-                    </div>
-                  </div>
-                  <Badge variant="orange" size="sm">Verified</Badge>
-                </div>
-
-                {/* Layer 4: Environment & Services */}
-                <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#FAF8F3] border border-[#E8E2D9] shadow-warm-sm hover:border-[#FF5A1F]/40 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <span className="p-2 rounded-lg bg-[#FFFDF9] border border-[#E8E2D9] text-[#77736C]">
-                      <Layers className="w-4 h-4 text-[#202124]" />
-                    </span>
-                    <div>
-                      <div className="text-xs font-semibold text-[#202124]">Environment & Services</div>
-                      <div className="text-[11px] text-[#77736C] font-mono">Postgres 16 • Redis 7 • .env</div>
-                    </div>
-                  </div>
-                  <Badge variant="success" size="sm">Healthy</Badge>
-                </div>
+                  );
+                })}
               </div>
 
               {/* Bottom Visual Tag */}
               <div className="mt-6 pt-4 border-t border-[#E8E2D9] flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#FF5A1F] text-white flex items-center justify-center font-bold text-xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-[#FF5A1F] text-white flex items-center justify-center font-bold text-xs shadow-warm-sm">
                     R
                   </div>
                   <div>
-                    <div className="text-[11px] font-semibold text-[#202124]">You&apos;re covered!</div>
-                    <div className="text-[10px] text-[#77736C] font-mono">Fingerprint: ce19840a...</div>
+                    <div className="text-xs font-bold text-[#202124]">You&apos;re covered!</div>
+                    <div className="text-xs text-[#77736C] font-mono">Digest: ce19840a...</div>
                   </div>
                 </div>
-                <span className="text-[11px] text-[#238636] bg-[#EAF5EA] px-2 py-0.5 rounded-full font-medium border border-[#C6E7C6]">
-                  ✓ 100% In Sync
+                <span className="text-xs text-[#238636] bg-[#EAF5EA] px-3 py-1 rounded-full font-semibold border border-[#C6E7C6] flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> 100% In Sync
                 </span>
               </div>
             </div>
@@ -207,43 +235,43 @@ export function HeroSection() {
 
         {/* 4 Bottom Highlight Cards Strip */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
+          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3.5 hover:border-[#D8D2C7] transition-all">
+            <div className="p-3 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
               <Camera className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-[#202124]">Environment Scanning</h4>
-              <p className="text-[11px] text-[#77736C]">Detect what matters</p>
+              <h4 className="text-sm font-bold text-[#202124]">Environment Scanning</h4>
+              <p className="text-xs text-[#77736C] mt-0.5">Detect what matters</p>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
+          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3.5 hover:border-[#D8D2C7] transition-all">
+            <div className="p-3 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-[#202124]">Smart Snapshots</h4>
-              <p className="text-[11px] text-[#77736C]">Create reliable fingerprints</p>
+              <h4 className="text-sm font-bold text-[#202124]">Smart Snapshots</h4>
+              <p className="text-xs text-[#77736C] mt-0.5">Create reliable fingerprints</p>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
+          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3.5 hover:border-[#D8D2C7] transition-all">
+            <div className="p-3 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
               <GitCompare className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-[#202124]">Drift Detection</h4>
-              <p className="text-[11px] text-[#77736C]">Spot differences instantly</p>
+              <h4 className="text-sm font-bold text-[#202124]">Drift Detection</h4>
+              <p className="text-xs text-[#77736C] mt-0.5">Spot differences instantly</p>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
+          <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#E8E2D9] shadow-warm-sm flex items-center gap-3.5 hover:border-[#D8D2C7] transition-all">
+            <div className="p-3 rounded-xl bg-[#FFF2EC] text-[#FF5A1F] shrink-0">
               <TerminalSquare className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-[#202124]">Developer First</h4>
-              <p className="text-[11px] text-[#77736C]">Simple, fast, local-first</p>
+              <h4 className="text-sm font-bold text-[#202124]">Developer First</h4>
+              <p className="text-xs text-[#77736C] mt-0.5">Simple, fast, local-first</p>
             </div>
           </div>
         </div>

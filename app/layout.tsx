@@ -97,7 +97,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "cKmm49dWUv2GB4xV28eqbIIgj4DaphHTYAWTdEoQc8Q",
     yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || undefined,
     other: {
       ...(process.env.NEXT_PUBLIC_BING_VERIFICATION

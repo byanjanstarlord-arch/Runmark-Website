@@ -64,7 +64,8 @@ body {
 }
 
 /* Lenis smooth scrolling rules */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -85,14 +86,15 @@ html.lenis, html.lenis body {
 }
 
 /* Code block highlighting aesthetics */
-pre, code {
+pre,
+code {
   font-family: var(--font-geist-mono), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 /* Grain texture overlay */
 .bg-warm-grid {
   background-size: 32px 32px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(232, 226, 217, 0.4) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(232, 226, 217, 0.4) 1px, transparent 1px);
 }
@@ -104,8 +106,17 @@ pre, code {
 
 /* Utility animations */
 @keyframes pulse-subtle {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(1.02); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
 }
 
 .animate-pulse-subtle {
@@ -116,6 +127,7 @@ pre, code {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -130,12 +142,15 @@ pre, code {
     top: -12%;
     opacity: 0;
   }
+
   12% {
     opacity: 0.85;
   }
+
   85% {
     opacity: 0.85;
   }
+
   100% {
     top: 108%;
     opacity: 0;
@@ -147,9 +162,12 @@ pre, code {
 }
 
 @keyframes float-badge {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
   }
+
   50% {
     transform: translateY(-8px) rotate(1deg);
   }
@@ -160,9 +178,12 @@ pre, code {
 }
 
 @keyframes float-badge-delayed {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
   }
+
   50% {
     transform: translateY(8px) rotate(-1deg);
   }
@@ -176,6 +197,7 @@ pre, code {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -189,6 +211,7 @@ pre, code {
   0% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -205,9 +228,12 @@ pre, code {
 }
 
 @keyframes terminal-blink {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
@@ -219,7 +245,10 @@ pre, code {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
+
+  *,
+  ::before,
+  ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

@@ -11,6 +11,7 @@
 </p>
 
 <p align="center">
+  <a href="https://runmark.live"><img src="https://img.shields.io/badge/website-runmark.live-ff572f.svg?style=flat-square&logo=google-chrome&logoColor=white" alt="Live Website"></a>
   <a href="https://github.com/byanjanstarlord-arch/Runmark/releases"><img src="https://img.shields.io/badge/version-0.2.2-ff572f.svg?style=flat-square" alt="Version 0.2.2"></a>
   <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-14.2-black.svg?style=flat-square&logo=next.js" alt="Next.js"></a>
   <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5.7-blue.svg?style=flat-square&logo=typescript" alt="TypeScript"></a>
@@ -23,9 +24,9 @@
 
 ## ⚡ Overview
 
-**Runmark Website** is the official modern web application for [Runmark](https://github.com/byanjanstarlord-arch/Runmark) — a local-first development environment observability, fingerprinting, comparison, and verification tool designed to eliminate *"works on my machine"* forever.
+**[Runmark Website (runmark.live)](https://runmark.live)** is the official modern web application for [Runmark](https://github.com/byanjanstarlord-arch/Runmark) — a local-first development environment observability, fingerprinting, comparison, and verification tool designed to eliminate *"works on my machine"* forever.
 
-Built with **Next.js 14 App Router**, **TypeScript**, **Tailwind CSS**, and **GSAP**, this site delivers a high-craft, interactive editorial experience with buttery-smooth animations, tactile micro-interactions, and real-time environment simulation demos.
+Built with **Next.js 14 App Router**, **TypeScript**, **Tailwind CSS**, and **GSAP**, this site delivers a high-craft, interactive editorial experience with buttery-smooth animations, tactile micro-interactions, and real-time environment simulation demos. Explore it live at **[https://runmark.live](https://runmark.live)**.
 
 ---
 

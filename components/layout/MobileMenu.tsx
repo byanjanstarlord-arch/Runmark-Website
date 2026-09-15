@@ -38,7 +38,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           {/* Navigation Links */}
           <nav className="py-6 space-y-1">
             {siteConfig.navLinks.map((link) => {
-              const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
+              const isActive =
+                pathname === link.href ||
+                pathname.startsWith(link.href + "/") ||
+                (link.label === "Docs" && pathname.startsWith("/docs"));
               return (
                 <Link
                   key={link.href}

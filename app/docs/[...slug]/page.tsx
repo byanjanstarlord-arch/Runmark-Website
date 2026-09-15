@@ -2,6 +2,7 @@ import React from "react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { docArticles, docGroups } from "@/lib/docs-data";
+import { siteConfig } from "@/lib/site-config";
 import { DocsSidebar } from "@/components/docs/DocsSidebar";
 import { DocsBreadcrumbs } from "@/components/docs/DocsBreadcrumbs";
 import { DocsToc } from "@/components/docs/DocsToc";
@@ -33,6 +34,14 @@ export async function generateMetadata({ params }: DocsArticlePageProps): Promis
   return {
     title: `${article.title} — Runmark Documentation`,
     description: article.description,
+    alternates: {
+      canonical: `/docs/${slugKey}`,
+    },
+    openGraph: {
+      title: `${article.title} — Runmark Documentation`,
+      description: article.description,
+      url: `/docs/${slugKey}`,
+    },
   };
 }
 
@@ -44,8 +53,43 @@ export default function DocsArticlePage({ params }: DocsArticlePageProps) {
     notFound();
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": siteConfig.siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Documentation",
+        "item": `${siteConfig.siteUrl}/docs/getting-started/introduction`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": article.group,
+        "item": `${siteConfig.siteUrl}/docs/${slugKey}`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": article.title,
+        "item": `${siteConfig.siteUrl}/docs/${slugKey}`,
+      },
+    ],
+  };
+
   return (
     <div className="py-8 md:py-12 bg-[#FAF8F3]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row gap-10 lg:gap-12">
           

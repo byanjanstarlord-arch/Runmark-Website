@@ -16,7 +16,15 @@ import {
 
 export const metadata: Metadata = {
   title: "Community — Join the Runmark Open-Source Movement",
-  description: "Connect with developers building the future of reproducible development environments.",
+  description: "Connect with developers building the future of reproducible development environments. Contribute detectors, discuss environment contracts, and report issues.",
+  alternates: {
+    canonical: "/community",
+  },
+  openGraph: {
+    title: "Community — Join the Runmark Open-Source Movement",
+    description: "Connect with developers building the future of reproducible development environments.",
+    url: "/community",
+  },
 };
 
 export default function CommunityPage() {

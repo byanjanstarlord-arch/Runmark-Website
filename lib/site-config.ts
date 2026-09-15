@@ -14,10 +14,10 @@ export const siteConfig = {
   discussionsUrl: "https://github.com/byanjanstarlord-arch/Runmark/discussions",
   issuesUrl: "https://github.com/byanjanstarlord-arch/Runmark/issues",
   releasesUrl: "https://github.com/byanjanstarlord-arch/Runmark/releases",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://runmark.dev",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://runmark.live",
   navLinks: [
     { label: "Features", href: "/features" },
-    { label: "Docs", href: "/docs" },
+    { label: "Docs", href: "/docs/getting-started/introduction" },
     { label: "Playground", href: "/playground", badge: "Demo" },
     { label: "Changelog", href: "/changelog" },
     { label: "Roadmap", href: "/roadmap" },

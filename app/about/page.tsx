@@ -7,6 +7,14 @@ import { RunmarkLogo } from "@/components/ui/RunmarkLogo";
 export const metadata: Metadata = {
   title: "About — The Story Behind Runmark",
   description: "Why Runmark exists, our mission to eliminate environment drift, and our open-source philosophy.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About — The Story Behind Runmark",
+    description: "Why Runmark exists, our mission to eliminate environment drift, and our open-source philosophy.",
+    url: "/about",
+  },
 };
 
 export default function AboutPage() {

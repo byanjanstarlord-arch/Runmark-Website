@@ -1,126 +1,20 @@
-"use client";
+import React from "react";
+import { Metadata } from "next";
+import { ChangelogClient } from "@/components/changelog/ChangelogClient";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { changelogData } from "@/lib/changelog-data";
-import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
-import { ExternalLink } from "lucide-react";
+export const metadata: Metadata = {
+  title: "Changelog & Release Notes — Runmark",
+  description: "Track all release history, new CLI features, bug fixes, and improvements for Runmark development environment observability.",
+  alternates: {
+    canonical: "/changelog",
+  },
+  openGraph: {
+    title: "Changelog & Release Notes — Runmark",
+    description: "Track all release history, new CLI features, bug fixes, and improvements for Runmark.",
+    url: "/changelog",
+  },
+};
 
 export default function ChangelogPage() {
-  const [filter, setFilter] = useState<"all" | "Stable" | "Beta" | "Alpha">("all");
-
-  const filteredReleases = filter === "all"
-    ? changelogData
-    : changelogData.filter((r) => r.tag === filter || (filter === "Stable" && r.tag === "Latest"));
-
-  return (
-    <div className="py-12 md:py-20 bg-warm-grid min-h-screen">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="text-center mb-12 space-y-4">
-          <Badge variant="orange" size="md">Release History</Badge>
-          <h1 className="text-4xl sm:text-6xl font-extrabold text-[#202124] tracking-tight">
-            Changelog
-          </h1>
-          <p className="text-base sm:text-xl text-[#77736C]">
-            Track the continuous evolution, features, and fixes across Runmark releases.
-          </p>
-        </div>
-
-        {/* Filter Tabs */}
-        <div className="flex items-center justify-center gap-2.5 mb-12">
-          {(["all", "Stable", "Beta", "Alpha"] as const).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setFilter(tab)}
-              className={`px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
-                filter === tab
-                  ? "bg-[#202124] text-white shadow-warm-sm"
-                  : "bg-[#FFFDF9] text-[#77736C] border border-[#E8E2D9] hover:text-[#202124] hover:border-[#D8D2C7]"
-              }`}
-            >
-              {tab === "all" ? "All Releases" : tab}
-            </button>
-          ))}
-        </div>
-
-        {/* Release Timeline Cards */}
-        <div className="space-y-8 relative">
-          {filteredReleases.map((release) => (
-            <div
-              key={release.version}
-              className="rounded-3xl bg-[#FFFDF9] border border-[#E8E2D9] p-6 sm:p-10 shadow-warm-sm relative hover:border-[#D8D2C7] transition-all"
-            >
-              {/* Header Info */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#E8E2D9] gap-4 mb-6">
-                <div className="flex items-center gap-3.5">
-                  <div className="p-3 rounded-2xl bg-[#FFF2EC] text-[#FF5A1F] font-mono font-bold text-base shadow-sm">
-                    {release.version}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2.5">
-                      <h3 className="text-xl sm:text-2xl font-bold text-[#202124]">
-                        {release.title}
-                      </h3>
-                      {release.isLatest && (
-                        <Badge variant="orange" size="sm">Latest</Badge>
-                      )}
-                    </div>
-                    <p className="text-xs sm:text-sm text-[#77736C] font-mono mt-0.5">
-                      Released on {release.date}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  {release.docsUrl && (
-                    <Button href={release.docsUrl} variant="secondary" size="sm" className="text-xs font-semibold">
-                      Read Docs
-                    </Button>
-                  )}
-                  <Button
-                    href={release.githubUrl}
-                    external
-                    variant="outline"
-                    size="sm"
-                    className="text-xs font-semibold"
-                    rightIcon={<ExternalLink className="w-3.5 h-3.5" />}
-                  >
-                    View Release
-                  </Button>
-                </div>
-              </div>
-
-              {/* Summary */}
-              <p className="text-sm sm:text-base text-[#77736C] mb-6 leading-relaxed">
-                {release.summary}
-              </p>
-
-              {/* Categorized Sections */}
-              <div className="space-y-5">
-                {release.sections.map((section) => (
-                  <div key={section.category} className="space-y-2.5">
-                    <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#202124] flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#FF5A1F]" />
-                      <span>{section.category}</span>
-                    </h4>
-                    <ul className="space-y-2 ml-5">
-                      {section.items.map((item, iIndex) => (
-                        <li key={iIndex} className="text-sm text-[#77736C] list-disc leading-relaxed">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-      </div>
-    </div>
-  );
+  return <ChangelogClient />;
 }

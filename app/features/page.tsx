@@ -22,6 +22,14 @@ import {
 export const metadata: Metadata = {
   title: "Features — Development Environment Intelligence",
   description: "Explore all verified Runmark CLI capabilities: environment scanning, deterministic snapshots, drift detection, environment contracts, and doctor diagnostics.",
+  alternates: {
+    canonical: "/features",
+  },
+  openGraph: {
+    title: "Features — Development Environment Intelligence | Runmark",
+    description: "Explore all verified Runmark CLI capabilities: environment scanning, deterministic snapshots, drift detection, environment contracts, and doctor diagnostics.",
+    url: "/features",
+  },
 };
 
 const iconMap: Record<string, any> = {

@@ -43,7 +43,9 @@ export function Navbar() {
           <nav className="hidden md:flex items-center gap-1 bg-[#F3EFE8]/80 p-1 rounded-full border border-[#E8E2D9]">
             {siteConfig.navLinks.map((link) => {
               const isActive =
-                pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
+                pathname === link.href ||
+                (link.href !== "/" && pathname.startsWith(link.href)) ||
+                (link.label === "Docs" && pathname.startsWith("/docs"));
               return (
                 <Link
                   key={link.href}

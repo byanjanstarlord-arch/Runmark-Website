@@ -7,6 +7,14 @@ import { CheckCircle2, Circle } from "lucide-react";
 export const metadata: Metadata = {
   title: "Roadmap — Runmark Product Vision",
   description: "Explore the development roadmap for Runmark: CI integration, team baselines, custom plugin ecosystem, and cloud dev containers.",
+  alternates: {
+    canonical: "/roadmap",
+  },
+  openGraph: {
+    title: "Roadmap — Runmark Product Vision",
+    description: "Explore the development roadmap for Runmark: CI integration, team baselines, custom plugin ecosystem, and cloud dev containers.",
+    url: "/roadmap",
+  },
 };
 
 export default function RoadmapPage() {
